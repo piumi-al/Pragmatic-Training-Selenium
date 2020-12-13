@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import org.testng.annotations.AfterMethod;
@@ -30,11 +31,15 @@ public class TestAddNewEmployee {
     private static final By PROFILE = By.id("photofile");
     private static final By BTN_SAVE = By.id("btnSave");
     private static final By CHK_LOGIN = By.id("chkLogin");
+    private static final By LST_STATUS = By.id("status");
     private static final By TXT_LOGIN_USERNAME = By.id("user_name");
     private static final By TXT_LOGIN_PASSWORD = By.id("user_password");
     private static final By TXT_LOGIN_PASSWORD_CONFIRM = By.id("re_password");
     private WebDriver driver;
     private Faker faker;
+    private String firstName;
+    private String lastName;
+    private String username;
 
     @BeforeClass
     public void beforeClass() {
@@ -54,6 +59,7 @@ public class TestAddNewEmployee {
         navigateToAddEmployeePage();
 
         return  driver;
+
     }
 
     @AfterMethod
@@ -101,24 +107,80 @@ public class TestAddNewEmployee {
     }
 
 
+    //Faker
+
     @Test
     public void testAddNewEmployeeWithLoginDetailsDisabled() {
 
-        String firstName = faker.name().firstName();
-        String lastName =  faker.name().lastName();
-        String username = String.format("%s.%s", firstName, lastName);
+        
+         new  Faker();
+
+        this.firstName = faker.name().firstName();
+        this.lastName  = faker.name().lastName();
+        this.username  = String.format("%s.%s", firstName, lastName);
+        
+
+        
+      //  String firstName = faker.name().firstName();
+      //  String lastName  =  faker.name().lastName();
+      //  String username  = String.format("%s.%s", firstName, lastName);
 
         driver.findElement(TXT_FIRSTNAME).sendKeys("Janesh");
         driver.findElement(TXT_LASTNAME).sendKeys("Chandika");
 
+        //check the login
+        driver.findElement(CHK_LOGIN).click();
+
+
+        Select status = new Select(driver.findElement(LST_STATUS));
+        //status.selectByVisibleText("Disabled");
+        // status.selectByValue("Disabled");
+
+        //other methods
+       status.selectByIndex(0);
+        //status.selectByValue("Disabled");
+        //status.deselectByVisibleText("Disabled");
+
+
+
+        driver.findElement(TXT_LOGIN_USERNAME).sendKeys(username);
+        driver.findElement(TXT_LOGIN_PASSWORD).sendKeys("ptl@#321A");
+        driver.findElement(TXT_LOGIN_PASSWORD_CONFIRM).sendKeys("ptl@#321A");
         driver.findElement(BTN_SAVE).click();
 
     }
 
 
+    @Test
+    public void testAddNewEmployeeWithLoginDetails() {
+
+        String firstName = faker.name().firstName();
+        String lastName = faker.name().lastName();
+        String username = String.format("%s.%s", firstName, lastName);
 
 
+        driver.findElement(TXT_FIRSTNAME).sendKeys(firstName);
+        driver.findElement(TXT_LASTNAME).sendKeys(lastName);
+        driver.findElement(CHK_LOGIN).click();
 
+
+        driver.findElement(TXT_LOGIN_USERNAME).sendKeys(username);
+        driver.findElement(TXT_LOGIN_PASSWORD).sendKeys("Ptl@#321A");
+        driver.findElement(TXT_LOGIN_PASSWORD_CONFIRM).sendKeys("Ptl@#321A");
+
+        driver.findElement(BTN_SAVE).click();
+    }
+
+
+    @Test
+    public void testAddNewEmployeeWithMandatoryInfo() {
+
+        driver.findElement(TXT_FIRSTNAME).sendKeys(faker.name().firstName());
+        driver.findElement(TXT_LASTNAME).sendKeys(faker.name().lastName());
+        driver.findElement(BTN_SAVE).click();
+
+
+    }
 
 
 
