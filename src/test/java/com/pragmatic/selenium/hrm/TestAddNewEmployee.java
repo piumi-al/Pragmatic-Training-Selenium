@@ -112,18 +112,18 @@ public class TestAddNewEmployee {
     @Test
     public void testAddNewEmployeeWithLoginDetailsDisabled() {
 
-        
-         new  Faker();
 
-        this.firstName = faker.name().firstName();
-        this.lastName  = faker.name().lastName();
-        this.username  = String.format("%s.%s", firstName, lastName);
+        Faker faker = new  Faker();
+
+       // this.firstName = faker.name().firstName();
+       // this.lastName  = faker.name().lastName();
+       // this.username  = String.format("%s.%s", firstName, lastName);
         
 
         
-      //  String firstName = faker.name().firstName();
-      //  String lastName  =  faker.name().lastName();
-      //  String username  = String.format("%s.%s", firstName, lastName);
+      String firstName = faker.name().firstName();
+      String lastName  =  faker.name().lastName();
+      String username  = String.format("%s.%s", firstName, lastName);
 
         driver.findElement(TXT_FIRSTNAME).sendKeys("Shehani");
         driver.findElement(TXT_LASTNAME).sendKeys("Dissanayake");
@@ -133,11 +133,11 @@ public class TestAddNewEmployee {
 
 
         Select status = new Select(driver.findElement(LST_STATUS));
-        //status.selectByVisibleText("Disabled");
+       status.selectByVisibleText("Disabled");
         // status.selectByValue("Disabled");
 
         //other methods
-       status.selectByIndex(0);
+       //status.selectByIndex(0);
         //status.selectByValue("Disabled");
         //status.deselectByVisibleText("Disabled");
 
@@ -153,6 +153,9 @@ public class TestAddNewEmployee {
 
     @Test
     public void testAddNewEmployeeWithLoginDetails() {
+
+        Faker faker = new  Faker();
+
 
         String firstName = faker.name().firstName();
         String lastName = faker.name().lastName();
@@ -174,6 +177,8 @@ public class TestAddNewEmployee {
 
     @Test
     public void testAddNewEmployeeWithMandatoryInfo() {
+
+        Faker faker = new  Faker();
 
         driver.findElement(TXT_FIRSTNAME).sendKeys(faker.name().firstName());
         driver.findElement(TXT_LASTNAME).sendKeys(faker.name().lastName());
