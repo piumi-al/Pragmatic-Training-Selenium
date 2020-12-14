@@ -96,11 +96,11 @@ public class TestAddNewEmployee {
     @Test
     public void testAddNewEmployeeWithProfileImage() {
 
-        driver.findElement(TXT_FIRSTNAME).sendKeys("Janesh");
-        driver.findElement(TXT_LASTNAME).sendKeys("Chandika");
+        driver.findElement(TXT_FIRSTNAME).sendKeys("Shehani");
+        driver.findElement(TXT_LASTNAME).sendKeys("Dissanayake");
 
         //give image path
-        //driver.findElement(PROFILE).sendKeys("");
+        driver.findElement(PROFILE).sendKeys("D:/PragmaticSelenium/Projects/test_data/profile1.jpg");
 
         driver.findElement(BTN_SAVE).click();
 
@@ -125,8 +125,8 @@ public class TestAddNewEmployee {
       //  String lastName  =  faker.name().lastName();
       //  String username  = String.format("%s.%s", firstName, lastName);
 
-        driver.findElement(TXT_FIRSTNAME).sendKeys("Janesh");
-        driver.findElement(TXT_LASTNAME).sendKeys("Chandika");
+        driver.findElement(TXT_FIRSTNAME).sendKeys("Shehani");
+        driver.findElement(TXT_LASTNAME).sendKeys("Dissanayake");
 
         //check the login
         driver.findElement(CHK_LOGIN).click();
