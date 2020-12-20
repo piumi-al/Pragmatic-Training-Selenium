@@ -15,8 +15,11 @@ public class LandingPage {
 
     public LandingPage(WebDriver driver) {
         this.driver = driver;
+
+        //magic code
         PageFactory.initElements(this.driver, this);
     }
+
 
     public String getWelcomeMsg() {
         String welcomeMessage = lnkWelcome.getText();
